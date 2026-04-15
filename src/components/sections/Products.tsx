@@ -8,29 +8,25 @@ const products = [
   {
     icon: <Layers size={22} />,
     title: "Poster Paper",
-    description:
-      "Available in 1000, 3000 and 5000 grade. Premium quality for printing, advertising, and packaging applications.",
+    description: "Available in 1000, 3000 and 5000 grade. Premium quality for printing, advertising, and packaging applications.",
     tags: ["1000 Grade", "3000 Grade", "5000 Grade"],
   },
   {
     icon: <Package size={22} />,
     title: "Kraft Paper",
-    description:
-      "Strong, durable kraft paper for packaging, wrapping, and industrial applications across India.",
+    description: "Strong, durable kraft paper for packaging, wrapping, and industrial applications across India.",
     tags: ["Packaging", "Industrial", "Custom Sizes"],
   },
   {
     icon: <Sparkles size={22} />,
     title: "MG Paper",
-    description:
-      "Smooth, glazed finish paper for food packaging, butter paper applications, and specialty printing.",
+    description: "Smooth, glazed finish paper for food packaging, butter paper applications, and specialty printing.",
     tags: ["Food Grade", "Glazed Finish", "Specialty"],
   },
   {
     icon: <Shield size={22} />,
     title: "Stiffener Paper",
-    description:
-      "High-stiffness paper for garment, textile and industrial packaging requirements. Consistent quality guaranteed.",
+    description: "High-stiffness paper for garment, textile and industrial packaging requirements. Consistent quality guaranteed.",
     tags: ["Garment Industry", "Textile", "Industrial"],
   },
 ];
@@ -41,10 +37,9 @@ export default function Products() {
       id="products"
       aria-labelledby="products-heading"
       className="section-padding"
-      style={{ background: "var(--cream-dark)" }}
+      style={{ background: "var(--black-mid)" }}
     >
       <div className="section-container">
-        {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -57,24 +52,21 @@ export default function Products() {
           <h2
             id="products-heading"
             className="text-4xl sm:text-5xl font-bold tracking-tight mb-4"
-            style={{ fontFamily: "var(--font-display)", color: "var(--charcoal)", letterSpacing: "-0.02em" }}
+            style={{ fontFamily: "var(--font-display)", color: "var(--text-primary)", letterSpacing: "-0.02em" }}
           >
             Our Product Range
           </h2>
           <p className="text-base leading-relaxed" style={{ color: "var(--text-secondary)" }}>
-            Sourced directly from India&apos;s leading paper mills — quality assured,
-            competitively priced, pan-India delivery.
+            Sourced directly from India&apos;s leading paper mills — quality assured, competitively priced, pan-India delivery.
           </p>
         </motion.div>
 
-        {/* Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
           {products.map((product, i) => (
             <ProductCard key={product.title} {...product} index={i} />
           ))}
         </div>
 
-        {/* CTA nudge */}
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}

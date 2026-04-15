@@ -4,34 +4,16 @@ import { motion } from "framer-motion";
 import TimelineStep from "@/components/ui/TimelineStep";
 
 const steps = [
-  {
-    title: "Share Requirements",
-    description: "Tell us your paper grade, quantity, and delivery location.",
-  },
-  {
-    title: "Get Quote",
-    description: "We provide competitive mill-direct pricing within 24 hours.",
-  },
-  {
-    title: "Confirm & Dispatch",
-    description: "Order confirmed, truck dispatched with e-way bill and documentation.",
-  },
-  {
-    title: "Delivered & Invoiced",
-    description: "Formal GST invoice, TReDS payment option available.",
-  },
+  { title: "Share Requirements", description: "Tell us your paper grade, quantity, and delivery location." },
+  { title: "Get Quote", description: "We provide competitive mill-direct pricing within 24 hours." },
+  { title: "Confirm & Dispatch", description: "Order confirmed, truck dispatched with e-way bill and documentation." },
+  { title: "Delivered & Invoiced", description: "Formal GST invoice, TReDS payment option available." },
 ];
 
 export default function HowItWorks() {
   return (
-    <section
-      id="how-it-works"
-      aria-labelledby="howitworks-heading"
-      className="section-padding"
-      style={{ background: "var(--charcoal-mid)" }}
-    >
+    <section id="how-it-works" aria-labelledby="howitworks-heading" className="section-padding" style={{ background: "var(--black-mid)" }}>
       <div className="section-container">
-        {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -40,32 +22,20 @@ export default function HowItWorks() {
           className="mb-16 text-center"
         >
           <div className="gold-line mx-auto" />
-          <span className="section-label" style={{ color: "var(--gold)" }}>
-            The Process
-          </span>
+          <span className="section-label">The Process</span>
           <h2
             id="howitworks-heading"
             className="text-4xl sm:text-5xl font-bold tracking-tight mb-4"
-            style={{
-              fontFamily: "var(--font-display)",
-              color: "var(--cream)",
-              letterSpacing: "-0.02em",
-            }}
+            style={{ fontFamily: "var(--font-display)", color: "var(--text-primary)", letterSpacing: "-0.02em" }}
           >
             Simple. Reliable. Fast.
           </h2>
-          <p
-            className="text-base leading-relaxed max-w-xl mx-auto"
-            style={{ color: "rgba(247,244,238,0.55)" }}
-          >
-            From inquiry to delivery — a streamlined process designed
-            around your business needs.
+          <p className="text-base leading-relaxed max-w-xl mx-auto" style={{ color: "var(--text-secondary)" }}>
+            From inquiry to delivery — a streamlined process designed around your business needs.
           </p>
         </motion.div>
 
-        {/* Timeline */}
         <div className="relative flex flex-col md:flex-row gap-10 md:gap-4">
-          {/* Animated background line (desktop) */}
           <motion.div
             className="hidden md:block absolute"
             initial={{ scaleX: 0 }}
@@ -77,20 +47,13 @@ export default function HowItWorks() {
               left: "12.5%",
               right: "12.5%",
               height: "1px",
-              background: "linear-gradient(90deg, var(--gold), rgba(200,150,62,0.25))",
+              background: "linear-gradient(90deg, var(--gold), rgba(212,168,83,0.2))",
               transformOrigin: "left center",
             }}
             aria-hidden="true"
           />
-
           {steps.map((step, i) => (
-            <TimelineStep
-              key={step.title}
-              step={i + 1}
-              title={step.title}
-              description={step.description}
-              isLast={i === steps.length - 1}
-            />
+            <TimelineStep key={step.title} step={i + 1} title={step.title} description={step.description} isLast={i === steps.length - 1} />
           ))}
         </div>
       </div>

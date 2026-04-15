@@ -1,33 +1,47 @@
 @import "tailwindcss";
 
 /* ============================================
-   DESIGN SYSTEM — SATGURU PAPER
-   Aesthetic: Luxury-Industrial
-   Palette: Cream / Charcoal / Gold
+   DESIGN SYSTEM — KHEMKA PAPERS
+   Aesthetic: Luxury-Dark / Industrial Premium
+   Palette: Deep Black / Warm Gold / Off-White
    ============================================ */
 
 :root {
-  --cream: #F7F4EE;
-  --cream-dark: #EDE9DF;
-  --cream-darker: #E0DAD0;
-  --charcoal: #1C1C1E;
-  --charcoal-mid: #2C2C2E;
-  --charcoal-light: #3A3A3C;
-  --gold: #C8963E;
-  --gold-light: #E4B86A;
-  --gold-dark: #A37428;
+  /* Core dark palette */
+  --black:         #09090B;
+  --black-mid:     #0F0F12;
+  --black-card:    #141418;
+  --black-border:  #1E1E24;
+  --black-raised:  #1A1A20;
 
-  --text-primary: #1C1C1E;
-  --text-secondary: #4A4A4C;
-  --text-muted: #8A8A8C;
-  --text-inverse: #F7F4EE;
+  /* Gold accent */
+  --gold:          #D4A853;
+  --gold-light:    #EAC476;
+  --gold-dark:     #A87E35;
+  --gold-glow:     rgba(212, 168, 83, 0.18);
+  --gold-subtle:   rgba(212, 168, 83, 0.08);
 
-  --shadow-sm: 0 1px 3px rgba(28, 28, 30, 0.08);
-  --shadow-md: 0 4px 16px rgba(28, 28, 30, 0.10);
-  --shadow-lg: 0 12px 40px rgba(28, 28, 30, 0.14);
+  /* Text */
+  --text-primary:   #F0EBE1;
+  --text-secondary: #9A9390;
+  --text-muted:     #5A5652;
+  --text-gold:      #D4A853;
 
+  /* Borders */
+  --border:         rgba(212, 168, 83, 0.14);
+  --border-strong:  rgba(212, 168, 83, 0.28);
+
+  /* Shadows */
+  --shadow-sm:  0 1px 4px rgba(0,0,0,0.5);
+  --shadow-md:  0 4px 20px rgba(0,0,0,0.6);
+  --shadow-lg:  0 12px 48px rgba(0,0,0,0.7);
+  --shadow-gold: 0 4px 28px rgba(212, 168, 83, 0.2);
+
+  /* Layout */
   --section-padding: clamp(4rem, 8vw, 8rem);
   --container-max: 1280px;
+
+  /* Transitions */
   --transition-fast: 150ms ease;
   --transition-base: 300ms ease;
 }
@@ -42,12 +56,14 @@ html {
 }
 
 body {
-  background-color: var(--cream);
+  background-color: var(--black);
   color: var(--text-primary);
   overflow-x: hidden;
 }
 
-/* Grain texture */
+/* ============================================
+   GRAIN TEXTURE OVERLAY
+   ============================================ */
 .grain-overlay { position: relative; }
 .grain-overlay::after {
   content: '';
@@ -56,22 +72,26 @@ body {
   pointer-events: none;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.05'/%3E%3C/svg%3E");
   background-size: 200px 200px;
-  opacity: 0.45;
+  opacity: 0.35;
   mix-blend-mode: overlay;
   z-index: 1;
+  pointer-events: none;
 }
 .grain-overlay > * { position: relative; z-index: 2; }
 
-/* Hero background */
+/* ============================================
+   HERO BACKGROUND
+   ============================================ */
 .hero-pattern {
-  background-color: var(--charcoal);
+  background-color: #000000;
   background-image:
-    radial-gradient(ellipse at 20% 60%, rgba(200, 150, 62, 0.10) 0%, transparent 55%),
-    radial-gradient(ellipse at 80% 20%, rgba(200, 150, 62, 0.06) 0%, transparent 45%),
-    radial-gradient(ellipse at 50% 100%, rgba(200, 150, 62, 0.04) 0%, transparent 40%);
+    radial-gradient(ellipse at 20% 60%, rgba(212,168,83,0.06) 0%, transparent 55%),
+    radial-gradient(ellipse at 80% 20%, rgba(212,168,83,0.04) 0%, transparent 45%);
 }
 
-/* Section utilities */
+/* ============================================
+   SECTION UTILITIES
+   ============================================ */
 .section-container {
   max-width: var(--container-max);
   margin: 0 auto;
@@ -98,13 +118,15 @@ body {
   margin-bottom: 1.25rem;
 }
 
-/* Tag chips */
+/* ============================================
+   TAG CHIPS
+   ============================================ */
 .tag-chip {
   display: inline-flex;
   align-items: center;
   padding: 0.18rem 0.6rem;
-  background: rgba(200, 150, 62, 0.08);
-  border: 1px solid rgba(200, 150, 62, 0.22);
+  background: var(--gold-subtle);
+  border: 1px solid var(--border);
   border-radius: 999px;
   font-size: 0.68rem;
   font-weight: 600;
@@ -113,50 +135,56 @@ body {
   text-transform: uppercase;
 }
 
-/* Trust badges */
+/* ============================================
+   TRUST BADGES
+   ============================================ */
 .trust-badge {
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
   padding: 0.4rem 0.85rem;
-  background: rgba(200, 150, 62, 0.07);
-  border: 1px solid rgba(200, 150, 62, 0.18);
+  background: var(--gold-subtle);
+  border: 1px solid var(--border);
   border-radius: 6px;
   font-size: 0.75rem;
   font-weight: 600;
   letter-spacing: 0.04em;
-  color: var(--charcoal);
+  color: var(--text-primary);
 }
 
-/* Stat card */
+/* ============================================
+   STAT CARD
+   ============================================ */
 .stat-card {
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(200, 150, 62, 0.18);
+  background: rgba(255,255,255,0.03);
+  border: 1px solid var(--border);
   border-radius: 10px;
   padding: 1.2rem 1.5rem;
   backdrop-filter: blur(8px);
 }
 
-/* Paper stack CSS art */
+/* ============================================
+   PAPER STACK CSS ART
+   ============================================ */
 .paper-stack { position: relative; width: 280px; height: 320px; }
 .paper-layer { position: absolute; border-radius: 4px; box-shadow: var(--shadow-md); }
 .paper-layer-1 {
   width: 220px; height: 280px;
-  background: var(--cream-darker);
+  background: var(--black-border);
   top: 40px; left: 60px;
   transform: rotate(6deg);
 }
 .paper-layer-2 {
   width: 220px; height: 280px;
-  background: var(--cream-dark);
+  background: var(--black-raised);
   top: 20px; left: 40px;
   transform: rotate(3deg);
 }
 .paper-layer-3 {
   width: 220px; height: 280px;
-  background: var(--cream);
+  background: var(--black-card);
   top: 0; left: 20px;
-  border: 1px solid rgba(200, 150, 62, 0.2);
+  border: 1px solid var(--border);
 }
 .paper-layer-gold {
   position: absolute;
@@ -166,27 +194,34 @@ body {
   bottom: 64px; left: 44px;
 }
 
-/* Form styles */
+/* ============================================
+   FORM STYLES
+   ============================================ */
 .form-input {
   width: 100%;
-  background: rgba(247, 244, 238, 0.8);
-  border: 1px solid rgba(200, 150, 62, 0.2);
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--border);
   border-radius: 8px;
   padding: 0.8rem 1rem;
   font-size: 0.95rem;
-  color: var(--charcoal);
+  color: var(--text-primary);
   transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
   outline: none;
   font-family: inherit;
 }
 .form-input:focus {
   border-color: var(--gold);
-  box-shadow: 0 0 0 3px rgba(200, 150, 62, 0.1);
+  box-shadow: 0 0 0 3px rgba(212,168,83,0.1);
 }
 .form-input::placeholder { color: var(--text-muted); }
 .form-input.error {
-  border-color: #DC2626;
-  box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1);
+  border-color: #EF4444;
+  box-shadow: 0 0 0 3px rgba(239,68,68,0.1);
+}
+/* Select dark styling */
+.form-input option {
+  background: var(--black-card);
+  color: var(--text-primary);
 }
 .form-label {
   display: block;
@@ -197,20 +232,24 @@ body {
   color: var(--text-secondary);
   margin-bottom: 0.4rem;
 }
-.form-error { font-size: 0.76rem; color: #DC2626; margin-top: 0.3rem; }
+.form-error { font-size: 0.76rem; color: #EF4444; margin-top: 0.3rem; }
 
-/* Scrollbar */
+/* ============================================
+   SCROLLBAR
+   ============================================ */
 ::-webkit-scrollbar { width: 5px; }
-::-webkit-scrollbar-track { background: var(--cream-dark); }
-::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 3px; }
+::-webkit-scrollbar-track { background: var(--black-mid); }
+::-webkit-scrollbar-thumb { background: var(--gold-dark); border-radius: 3px; }
 
-/* Selection */
-::selection { background: rgba(200, 150, 62, 0.15); color: var(--charcoal); }
-
-/* Focus */
+/* ============================================
+   SELECTION / FOCUS
+   ============================================ */
+::selection { background: rgba(212,168,83,0.2); color: var(--text-primary); }
 :focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; border-radius: 4px; }
 
-/* Animated underline */
+/* ============================================
+   ANIMATED UNDERLINE
+   ============================================ */
 .animated-underline { position: relative; display: inline-block; }
 .animated-underline::after {
   content: '';
@@ -221,3 +260,13 @@ body {
   transition: width var(--transition-base);
 }
 .animated-underline:hover::after { width: 100%; }
+
+/* ============================================
+   FIREWORKS CANVAS CONTAINER
+   ============================================ */
+.fireworks-container {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}

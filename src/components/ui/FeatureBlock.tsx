@@ -11,24 +11,17 @@ interface FeatureBlockProps {
   accentColor?: string;
 }
 
-export default function FeatureBlock({
-  icon,
-  title,
-  description,
-  index,
-  accentColor = "var(--gold)",
-}: FeatureBlockProps) {
+export default function FeatureBlock({ icon, title, description, index, accentColor = "var(--gold)" }: FeatureBlockProps) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-50px" }}
       transition={{ duration: 0.5, delay: index * 0.08, ease: [0.22, 1, 0.36, 1] }}
-      className="flex flex-col gap-4 p-6 rounded-xl group"
+      className="flex flex-col gap-4 p-6 rounded-xl"
       style={{
-        background: "rgba(255,255,255,0.6)",
-        border: "1px solid rgba(200, 150, 62, 0.1)",
-        backdropFilter: "blur(4px)",
+        background: "var(--black-card)",
+        border: "1px solid var(--border)",
       }}
     >
       <div
@@ -43,8 +36,8 @@ export default function FeatureBlock({
       </div>
       <div>
         <h3
-          className="font-semibold text-base mb-1.5 tracking-tight"
-          style={{ color: "var(--charcoal)", fontFamily: "var(--font-display)", fontSize: "1.1rem" }}
+          className="font-semibold mb-1.5 tracking-tight"
+          style={{ fontFamily: "var(--font-display)", color: "var(--text-primary)", fontSize: "1.1rem" }}
         >
           {title}
         </h3>
