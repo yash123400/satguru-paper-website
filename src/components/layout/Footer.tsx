@@ -33,7 +33,7 @@ export default function Footer() {
                   lineHeight: 1.2,
                 }}
               >
-                Satguru Paper
+                Khemka Papers
               </h2>
               <p
                 style={{
@@ -101,11 +101,11 @@ export default function Footer() {
             <ul className="flex flex-col gap-3">
               <li className="flex items-start gap-3">
                 <Phone size={14} style={{ color: "var(--gold)", flexShrink: 0, marginTop: "3px" }} aria-hidden="true" />
-                <span className="text-sm" style={{ color: "rgba(247,244,238,0.6)" }}>+91 XXXXXXXXXX</span>
+                <span className="text-sm" style={{ color: "rgba(247,244,238,0.6)" }}>+91 98150 00359</span>
               </li>
               <li className="flex items-start gap-3">
                 <Mail size={14} style={{ color: "var(--gold)", flexShrink: 0, marginTop: "3px" }} aria-hidden="true" />
-                <span className="text-sm" style={{ color: "rgba(247,244,238,0.6)" }}>info@satgurpaper.com</span>
+                <span className="text-sm" style={{ color: "rgba(247,244,238,0.6)" }}>sales@khemkapapers.com</span>
               </li>
               <li className="flex items-start gap-3">
                 <MapPin size={14} style={{ color: "var(--gold)", flexShrink: 0, marginTop: "3px" }} aria-hidden="true" />
@@ -118,7 +118,7 @@ export default function Footer() {
         {/* Bottom bar */}
         <div className="flex flex-col sm:flex-row items-center justify-between gap-3 pt-6">
           <p style={{ fontSize: "0.75rem", color: "rgba(247,244,238,0.3)" }}>
-            © 2026 Satguru Paper. All rights reserved.
+            © 2026 Khemka Papers. All rights reserved.
           </p>
           <p style={{ fontSize: "0.75rem", color: "rgba(247,244,238,0.3)" }}>
             Made with ❤️ in Ludhiana, Punjab

@@ -10,14 +10,14 @@ const testimonials = [
     company: "Anand Packaging Industries",
     city: "Delhi",
     rating: 5,
-    text: "Satguru Paper has been our go-to supplier for poster paper for the past 3 years. Consistent quality, on-time delivery, and competitive pricing — exactly what we need for our packaging operations.",
+    text: "Khemka Papers has been our go-to supplier for poster paper for the past 3 years. Consistent quality, on-time delivery, and competitive pricing — exactly what we need for our packaging operations.",
   },
   {
     name: "Priya Mehta",
     company: "Mehta Print Solutions",
     city: "Mumbai",
     rating: 5,
-    text: "Dealing with Satguru Paper feels different from other suppliers. Young, responsive team that actually answers the phone. Got our kraft paper order delivered to Mumbai within the promised timeline.",
+    text: "Dealing with Khemka Papers feels different from other suppliers. Young, responsive team that actually answers the phone. Got our kraft paper order delivered to Mumbai within the promised timeline.",
   },
   {
     name: "Suresh Nair",

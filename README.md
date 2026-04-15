@@ -1,6 +1,6 @@
-# Satguru Paper — B2B Paper Trading Website
+# Khemka Papers — B2B Paper Trading Website
 
-A production-ready business website for **Satguru Paper**, a B2B paper trading company based in Ludhiana, Punjab, India. Built to modernize a 15-year-old family business with a premium digital presence.
+A production-ready business website for **Khemka Papers**, a B2B paper trading company based in Ludhiana, Punjab, India. Built to modernize a 15-year-old family business with a premium digital presence.
 
 ## Tech Stack
 
@@ -34,8 +34,8 @@ A production-ready business website for **Satguru Paper**, a B2B paper trading c
 
 ```bash
 # 1. Clone the repo
-git clone https://github.com/yash123400/satguru-paper-website.git
-cd satguru-paper-website
+git clone https://github.com/yash123400/khemka-papers-website.git
+cd khemka-papers-website
 
 # 2. Install dependencies
 npm install

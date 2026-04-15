@@ -36,7 +36,7 @@ export async function POST(req: NextRequest) {
     // const resend = new Resend(process.env.RESEND_API_KEY);
     //
     // await resend.emails.send({
-    //   from: "Satguru Paper Website <noreply@satgurpaper.com>",
+    //   from: "Khemka Papers Website <noreply@khemkapapers.com>",
     //   to: [process.env.CONTACT_EMAIL!],
     //   subject: `New Quote Enquiry from ${body.company}`,
     //   html: `

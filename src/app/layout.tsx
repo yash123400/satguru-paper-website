@@ -17,13 +17,13 @@ const dmSans = DM_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Satguru Paper — B2B Paper Trading | Ludhiana, Punjab",
+  title: "Khemka Papers — B2B Paper Trading | Ludhiana, Punjab",
   description:
     "Trusted B2B paper trading from Ludhiana. Supplying poster paper, kraft, MG and stiffener paper to manufacturers across India for 15+ years. Mill-direct pricing, pan-India delivery.",
   keywords:
     "paper trading India, poster paper supplier, kraft paper, MG paper, stiffener paper, Ludhiana paper supplier, B2B paper",
   openGraph: {
-    title: "Satguru Paper — India's Paper. Delivered Right.",
+    title: "Khemka Papers — India's Paper. Delivered Right.",
     description:
       "15+ years of trusted paper supply across India. Mill-direct sourcing, pan-India delivery, TReDS enabled.",
     type: "website",

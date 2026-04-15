@@ -65,7 +65,7 @@ export default function Navbar() {
             href="#"
             className="flex flex-col leading-none"
             onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: "smooth" }); }}
-            aria-label="Satguru Paper — Home"
+            aria-label="Khemka Papers — Home"
           >
             <span
               className="font-bold tracking-tight"
@@ -76,7 +76,7 @@ export default function Navbar() {
                 letterSpacing: "-0.02em",
               }}
             >
-              Satguru Paper
+              Khemka Papers
             </span>
             <span
               style={{
@@ -179,7 +179,7 @@ export default function Navbar() {
                     fontWeight: 700,
                   }}
                 >
-                  Satguru Paper
+                  Khemka Papers
                 </span>
                 <button
                   onClick={() => setMenuOpen(false)}
@@ -226,7 +226,7 @@ export default function Navbar() {
               {/* Footer */}
               <div className="p-6" style={{ borderTop: "1px solid rgba(200,150,62,0.1)" }}>
                 <p style={{ fontSize: "0.72rem", color: "rgba(247,244,238,0.35)", letterSpacing: "0.08em" }}>
-                  © 2026 Satguru Paper, Ludhiana
+                  © 2026 Khemka Papers, Ludhiana
                 </p>
               </div>
             </motion.div>

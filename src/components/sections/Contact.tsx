@@ -349,7 +349,7 @@ export default function Contact() {
                   </div>
                   <div>
                     <p style={{ fontSize: "0.7rem", color: "rgba(247,244,238,0.4)", letterSpacing: "0.1em", textTransform: "uppercase", fontWeight: 600 }}>Phone</p>
-                    <p className="text-sm font-medium" style={{ color: "var(--cream)" }}>+91 XXXXXXXXXX</p>
+                    <p className="text-sm font-medium" style={{ color: "var(--cream)" }}>+91 98150 00359</p>
                   </div>
                 </li>
                 <li className="flex items-start gap-3">
@@ -358,7 +358,7 @@ export default function Contact() {
                   </div>
                   <div>
                     <p style={{ fontSize: "0.7rem", color: "rgba(247,244,238,0.4)", letterSpacing: "0.1em", textTransform: "uppercase", fontWeight: 600 }}>Email</p>
-                    <p className="text-sm font-medium" style={{ color: "var(--cream)" }}>info@satgurpaper.com</p>
+                    <p className="text-sm font-medium" style={{ color: "var(--cream)" }}>sales@khemkapapers.com</p>
                   </div>
                 </li>
                 <li className="flex items-start gap-3">
@@ -384,7 +384,7 @@ export default function Contact() {
 
             {/* WhatsApp CTA */}
             <a
-              href={`https://wa.me/${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "919800000000"}?text=Hi%2C%20I%20am%20interested%20in%20getting%20a%20quote%20for%20paper%20supply.`}
+              href={`https://wa.me/${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "919815000359"}?text=Hi%2C%20I%20am%20interested%20in%20getting%20a%20quote%20for%20paper%20supply.`}
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-3 rounded-2xl p-5 transition-all duration-200 group"
