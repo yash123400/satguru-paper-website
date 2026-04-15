@@ -1,36 +1,127 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Satguru Paper — B2B Paper Trading Website
 
-## Getting Started
+A production-ready business website for **Satguru Paper**, a B2B paper trading company based in Ludhiana, Punjab, India. Built to modernize a 15-year-old family business with a premium digital presence.
 
-First, run the development server:
+## Tech Stack
+
+| Layer | Tech |
+|-------|------|
+| Framework | Next.js 14 (App Router) |
+| Language | TypeScript |
+| Styling | Tailwind CSS + CSS Variables |
+| Animations | Framer Motion |
+| Icons | Lucide React |
+| Fonts | Cormorant Garamond + DM Sans (Google Fonts via next/font) |
+| Deployment | Vercel |
+
+## Features
+
+- Single-page scrolling website with smooth anchor navigation
+- Sticky navbar with scroll-triggered blur backdrop
+- Hero with staggered text animation and animated stat counters
+- 4-product grid with scroll-triggered card reveal
+- 6-feature "Why Us" grid
+- 4-step animated process timeline
+- About section with CSS paper stack art
+- Testimonials section (placeholder — replace with real data)
+- Contact form with client + server-side validation
+- Mobile hamburger drawer with staggered animations
+- Fully responsive (375px → 1920px)
+- Semantic HTML, aria labels, keyboard navigation
+- API route ready for Resend/Nodemailer email integration
+
+## Local Setup
 
 ```bash
+# 1. Clone the repo
+git clone https://github.com/yash123400/satguru-paper-website.git
+cd satguru-paper-website
+
+# 2. Install dependencies
+npm install
+
+# 3. Set up environment variables
+cp .env.example .env.local
+# Edit .env.local with your actual values
+
+# 4. Start development server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Environment Variables
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Copy `.env.example` to `.env.local` and fill in:
 
-## Learn More
+| Variable | Description |
+|----------|-------------|
+| `RESEND_API_KEY` | API key from [Resend](https://resend.com) for email notifications |
+| `CONTACT_EMAIL` | Email address to receive enquiry notifications |
+| `NEXT_PUBLIC_WHATSAPP_NUMBER` | WhatsApp number in international format (e.g. `919876543210`) |
 
-To learn more about Next.js, take a look at the following resources:
+> The contact form currently logs to console. To enable email delivery, uncomment the Resend block in `src/app/api/contact/route.ts` and install the Resend SDK: `npm install resend`
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Deployment (Vercel)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```bash
+# Install Vercel CLI if needed
+npm i -g vercel
 
-## Deploy on Vercel
+# Login
+vercel login
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+# Deploy to production
+vercel --prod
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Or connect the GitHub repo to Vercel via the dashboard for automatic deployments on push.
+
+### Environment Variables on Vercel
+
+Add in Vercel Dashboard → Project Settings → Environment Variables:
+- `RESEND_API_KEY`
+- `CONTACT_EMAIL`
+- `NEXT_PUBLIC_WHATSAPP_NUMBER`
+
+## Customization
+
+- **Company details**: Update phone, email, address in `src/components/sections/Contact.tsx` and `src/components/layout/Footer.tsx`
+- **Testimonials**: Replace placeholder data in `src/components/sections/Testimonials.tsx`
+- **WhatsApp number**: Set `NEXT_PUBLIC_WHATSAPP_NUMBER` in `.env.local`
+- **Colors**: Edit CSS variables in `src/app/globals.css`
+- **Fonts**: Change imports in `src/app/layout.tsx`
+
+## Project Structure
+
+```
+src/
+├── app/
+│   ├── layout.tsx          # Root layout, fonts, metadata
+│   ├── page.tsx            # Main page (assembles all sections)
+│   ├── globals.css         # Design system, CSS variables
+│   └── api/contact/
+│       └── route.ts        # Contact form API endpoint
+└── components/
+    ├── layout/
+    │   ├── Navbar.tsx
+    │   └── Footer.tsx
+    ├── sections/
+    │   ├── Hero.tsx
+    │   ├── Products.tsx
+    │   ├── WhyUs.tsx
+    │   ├── HowItWorks.tsx
+    │   ├── About.tsx
+    │   ├── Testimonials.tsx
+    │   └── Contact.tsx
+    └── ui/
+        ├── Button.tsx
+        ├── StatCounter.tsx
+        ├── ProductCard.tsx
+        ├── FeatureBlock.tsx
+        └── TimelineStep.tsx
+```
+
+---
+
+Built with care in Ludhiana, Punjab. 🇮🇳
