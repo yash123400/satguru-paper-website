@@ -8,8 +8,8 @@ const products = [
   {
     icon: <Layers size={22} />,
     title: "Poster Paper",
-    description: "Available in 1000, 3000 and 5000 grade. Premium quality for printing, advertising, and packaging applications.",
-    tags: ["1000 Grade", "3000 Grade", "5000 Grade"],
+    description: "Available in multiple grades and GSMs upon request. Premium quality for printing, advertising, and packaging applications.",
+    tags: ["Multiple Grades", "Custom GSM", "On Request"],
   },
   {
     icon: <Package size={22} />,

@@ -3,10 +3,9 @@
 import { motion } from "framer-motion";
 
 const stats = [
-  { value: "15+", label: "Years in Business" },
-  { value: "28+", label: "States Supplied" },
+  { value: "80+", label: "Years in Business" },
+  { value: "Pan-India", label: "Supply Reach" },
   { value: "12+", label: "Mill Partners" },
-  { value: "250+", label: "Tons / Month" },
 ];
 
 function OrnamentalDivider({ light = false }: { light?: boolean }) {
@@ -170,7 +169,7 @@ export default function Hero() {
               color: "#7A4E14",
               fontFamily: "var(--font-body)",
             }}>
-              Established 2009 &nbsp;·&nbsp; Ludhiana, Punjab
+              Running for over 4 Generations &nbsp;·&nbsp; Ludhiana, Punjab
             </motion.p>
 
             {/* Company name */}
@@ -231,7 +230,7 @@ export default function Hero() {
             {/* Stats row */}
             <motion.div variants={itemVariants} style={{
               display: "grid",
-              gridTemplateColumns: "repeat(4, 1fr)",
+              gridTemplateColumns: "repeat(3, 1fr)",
               gap: "0",
               width: "100%",
               marginTop: "0.25rem",
