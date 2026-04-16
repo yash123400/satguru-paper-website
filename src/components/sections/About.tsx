@@ -81,24 +81,6 @@ export default function About() {
                 </div>
                 <div className="paper-layer-gold" />
               </div>
-              <motion.div
-                animate={{ y: [0, -6, 0] }}
-                transition={{ repeat: Infinity, duration: 3.5, ease: "easeInOut" }}
-                className="absolute -top-4 -right-4 px-3 py-1.5 rounded-full"
-                style={{
-                  background: "var(--black-card)",
-                  border: "1px solid var(--border-strong)",
-                  fontSize: "0.68rem",
-                  fontWeight: 700,
-                  color: "var(--gold)",
-                  letterSpacing: "0.08em",
-                  textTransform: "uppercase",
-                  whiteSpace: "nowrap",
-                  boxShadow: "var(--shadow-gold)",
-                }}
-              >
-                15+ Years
-              </motion.div>
             </div>
           </motion.div>
         </div>
