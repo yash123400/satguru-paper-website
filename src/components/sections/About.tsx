@@ -23,8 +23,8 @@ export default function About() {
               className="text-4xl sm:text-5xl font-bold tracking-tight mb-6"
               style={{ fontFamily: "var(--font-display)", color: "var(--text-primary)", letterSpacing: "-0.02em", lineHeight: 1.1 }}
             >
-              Ludhiana&apos;s Paper Trading Partner
-              <span style={{ color: "var(--gold)" }}> Since 2009</span>
+              India&apos;s Paper Trading Partner of Choice,
+              <span style={{ color: "var(--gold)" }}> Since 4 Generations</span>
             </h2>
             <p className="text-base leading-relaxed mb-5" style={{ color: "var(--text-secondary)" }}>
               What started as a two-person operation has grown into a trusted name in India&apos;s paper supply chain. We combine 15 years of deep mill relationships with modern, tech-enabled operations — giving our buyers the best of both worlds: reliability and responsiveness.

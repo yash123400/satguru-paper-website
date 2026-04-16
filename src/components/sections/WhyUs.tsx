@@ -5,7 +5,7 @@ import { Trophy, Factory, Truck, CreditCard, CheckCircle, Zap } from "lucide-rea
 import FeatureBlock from "@/components/ui/FeatureBlock";
 
 const features = [
-  { icon: <Trophy size={20} />, title: "15 Years of Trust", description: "Established relationships with top mills across India. Reliable supply when others can't deliver.", color: "var(--gold)" },
+  { icon: <Trophy size={20} />, title: "80+ Years of Relationships", description: "Over 80 years of client relationships and deep mill connections across India. Reliable supply when others can't deliver.", color: "var(--gold)" },
   { icon: <Factory size={20} />, title: "Direct Mill Sourcing", description: "We source directly from mills — no middlemen, better rates, guaranteed quality control at origin.", color: "#6B9E78" },
   { icon: <Truck size={20} />, title: "Pan-India Delivery", description: "From Ludhiana to any corner of India. Logistics handled, e-way bills provided, tracking available.", color: "#5B8DB8" },
   { icon: <CreditCard size={20} />, title: "TReDS Enabled", description: "Digital payment infrastructure for formal, transparent transactions. Safe, compliant, and auditable.", color: "var(--gold)" },
