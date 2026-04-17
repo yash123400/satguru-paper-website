@@ -1,381 +1,413 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useState, useEffect, useRef } from "react";
+import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
 
-const stats = [
-  { value: "80+", label: "Years in Business" },
-  { value: "Pan-India", label: "Supply Reach" },
-  { value: "12+", label: "Mill Partners" },
+/* ─── Split-text component (Arclin-style per-char animation) ─── */
+function SplitText({
+  text, delay = 0, className = "", style = {},
+}: { text: string; delay?: number; className?: string; style?: React.CSSProperties }) {
+  return (
+    <span className={className} style={{ display: "inline-block", ...style }}>
+      {text.split("").map((char, i) => (
+        <motion.span
+          key={i}
+          initial={{ opacity: 0, y: 28, rotateX: -30 }}
+          animate={{ opacity: 1, y: 0, rotateX: 0 }}
+          transition={{
+            duration: 0.55,
+            delay: delay + i * 0.028,
+            ease: [0.22, 1, 0.36, 1],
+          }}
+          style={{ display: "inline-block", transformOrigin: "bottom center" }}
+        >
+          {char === " " ? "\u00A0" : char}
+        </motion.span>
+      ))}
+    </span>
+  );
+}
+
+/* ─── Cycling text for customer segments (Arclin-style) ─── */
+const cyclingTerms = [
+  "Printers",
+  "Packagers",
+  "Manufacturers",
+  "FMCG Brands",
+  "Exporters",
 ];
 
-function OrnamentalDivider({ light = false }: { light?: boolean }) {
-  const c = light ? "rgba(139,100,20,0.5)" : "#8B6414";
-  const ca = light ? "rgba(180,130,40,0.6)" : "#B8860B";
+function CyclingText() {
+  const [index, setIndex] = useState(0);
+  useEffect(() => {
+    const t = setInterval(() => setIndex((p) => (p + 1) % cyclingTerms.length), 2600);
+    return () => clearInterval(t);
+  }, []);
   return (
-    <div style={{ display: "flex", alignItems: "center", gap: "10px", width: "100%" }}>
-      <div style={{ flex: 1, height: "1px", background: `linear-gradient(to right, transparent, ${c})` }} />
-      <span style={{ color: c, fontSize: "0.55rem", letterSpacing: "6px" }}>✦ ✦ ✦</span>
-      <span style={{ color: ca, fontSize: "0.9rem" }}>❦</span>
-      <span style={{ color: c, fontSize: "0.55rem", letterSpacing: "6px" }}>✦ ✦ ✦</span>
-      <div style={{ flex: 1, height: "1px", background: `linear-gradient(to left, transparent, ${c})` }} />
+    <span
+      style={{
+        display: "inline-block",
+        position: "relative",
+        minWidth: "220px",
+        textAlign: "left",
+      }}
+    >
+      <AnimatePresence mode="wait">
+        <motion.span
+          key={index}
+          initial={{ opacity: 0, y: 14, filter: "blur(6px)" }}
+          animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+          exit={{ opacity: 0, y: -14, filter: "blur(6px)" }}
+          transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+          style={{
+            display: "inline-block",
+            color: "var(--gold)",
+          }}
+        >
+          {cyclingTerms[index]}
+        </motion.span>
+      </AnimatePresence>
+    </span>
+  );
+}
+
+/* ─── 3D floating paper geometry (Arclin-inspired depth) ─── */
+function PaperGeometry() {
+  const ref = useRef<HTMLDivElement>(null);
+  const { scrollY } = useScroll();
+  const y = useTransform(scrollY, [0, 600], [0, -80]);
+
+  return (
+    <motion.div
+      ref={ref}
+      style={{ y, position: "absolute", right: "clamp(1rem, 8vw, 8rem)", top: "50%", translateY: "-50%", pointerEvents: "none", zIndex: 1 }}
+      initial={{ opacity: 0, x: 60 }}
+      animate={{ opacity: 1, x: 0 }}
+      transition={{ duration: 1.1, delay: 0.8, ease: [0.22, 1, 0.36, 1] }}
+    >
+      {/* 3D paper stack in perspective */}
+      <div style={{ perspective: "900px", width: "clamp(200px, 25vw, 360px)", height: "clamp(260px, 32vw, 460px)" }}>
+        {/* Back sheets */}
+        {[
+          { rotate: "rotateY(-22deg) rotateX(6deg) rotateZ(8deg) translateZ(-60px)", bg: "rgba(201,168,76,0.05)", delay: 0.9 },
+          { rotate: "rotateY(-22deg) rotateX(6deg) rotateZ(4deg) translateZ(-30px)", bg: "rgba(201,168,76,0.08)", delay: 1.0 },
+          { rotate: "rotateY(-22deg) rotateX(6deg) rotateZ(0deg) translateZ(0px)",   bg: "var(--card)",           delay: 1.1 },
+        ].map((sheet, i) => (
+          <motion.div
+            key={i}
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8, delay: sheet.delay, ease: [0.22, 1, 0.36, 1] }}
+            style={{
+              position: "absolute",
+              inset: 0,
+              background: sheet.bg,
+              border: `1px solid ${i === 2 ? "rgba(201,168,76,0.22)" : "rgba(255,255,255,0.05)"}`,
+              borderRadius: "6px",
+              transform: sheet.rotate,
+              boxShadow: i === 2 ? "0 24px 80px rgba(0,0,0,0.7), 0 0 0 1px rgba(201,168,76,0.1)" : "none",
+              transformStyle: "preserve-3d",
+            }}
+          >
+            {i === 2 && (
+              /* Front sheet content */
+              <div style={{ padding: "clamp(1.5rem, 3vw, 2.5rem)", height: "100%", display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
+                {/* Header lines */}
+                <div>
+                  <div style={{ width: "42%", height: "3px", background: "linear-gradient(90deg, var(--gold), var(--gold-light))", borderRadius: "2px", marginBottom: "1.2rem" }} />
+                  {[80, 65, 72, 55, 68].map((w, j) => (
+                    <div key={j} style={{ height: "8px", width: `${w}%`, background: "rgba(255,255,255,0.06)", borderRadius: "4px", marginBottom: "10px" }} />
+                  ))}
+                </div>
+                {/* Middle content */}
+                <div style={{ borderTop: "1px solid rgba(201,168,76,0.12)", borderBottom: "1px solid rgba(201,168,76,0.12)", padding: "1rem 0", display: "flex", flexDirection: "column", gap: "8px" }}>
+                  {[40, 55, 48].map((w, j) => (
+                    <div key={j} style={{ height: "6px", width: `${w}%`, background: "rgba(201,168,76,0.15)", borderRadius: "3px" }} />
+                  ))}
+                </div>
+                {/* Stamp */}
+                <div style={{ display: "flex", justifyContent: "flex-end" }}>
+                  <div style={{
+                    width: "56px", height: "56px", borderRadius: "50%",
+                    border: "1.5px solid rgba(201,168,76,0.35)",
+                    display: "flex", alignItems: "center", justifyContent: "center",
+                    background: "rgba(201,168,76,0.05)",
+                  }}>
+                    <div style={{ textAlign: "center", fontSize: "0.3rem", fontWeight: 800, letterSpacing: "0.1em", color: "var(--gold)", textTransform: "uppercase", lineHeight: 1.7 }}>
+                      <div>MILL</div><div style={{ fontSize: "0.45rem" }}>✦</div><div>DIRECT</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+          </motion.div>
+        ))}
+
+        {/* Floating gold accent line */}
+        <motion.div
+          animate={{ opacity: [0.4, 0.9, 0.4], scaleX: [0.8, 1.05, 0.8] }}
+          transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut" }}
+          style={{
+            position: "absolute",
+            bottom: "-24px",
+            left: "8%",
+            right: "8%",
+            height: "1px",
+            background: "linear-gradient(90deg, transparent, var(--gold), transparent)",
+            filter: "blur(1px)",
+          }}
+        />
+      </div>
+    </motion.div>
+  );
+}
+
+/* ─── Marquee ticker ─── */
+const tickerItems = [
+  "Poster Paper", "Kraft Paper", "MG Paper", "Stiffener Paper",
+  "Mill-Direct Pricing", "GST Invoicing", "TReDS Enabled", "Pan-India Delivery",
+  "80+ Years Heritage", "12+ Mill Partners",
+];
+
+function Ticker() {
+  const items = [...tickerItems, ...tickerItems];
+  return (
+    <div
+      style={{
+        overflow: "hidden",
+        borderTop: "1px solid var(--border)",
+        borderBottom: "1px solid var(--border)",
+        padding: "0.75rem 0",
+        background: "rgba(255,255,255,0.015)",
+      }}
+      aria-hidden="true"
+    >
+      <div className="marquee-track">
+        {items.map((item, i) => (
+          <span key={i} style={{ display: "inline-flex", alignItems: "center", gap: "1.5rem", padding: "0 1.5rem" }}>
+            <span style={{ width: "4px", height: "4px", borderRadius: "50%", background: "var(--gold)", flexShrink: 0 }} />
+            <span style={{ fontSize: "0.72rem", fontWeight: 600, letterSpacing: "0.14em", textTransform: "uppercase", color: "var(--text-2)", whiteSpace: "nowrap" }}>
+              {item}
+            </span>
+          </span>
+        ))}
+      </div>
     </div>
   );
 }
 
-const scrollVariants = {
-  hidden: { scaleY: 0.04, opacity: 0 },
-  show: {
-    scaleY: 1, opacity: 1,
-    transition: { duration: 1.1, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] },
-  },
-};
-
-const contentVariants = {
-  hidden: {},
-  show: { transition: { staggerChildren: 0.1, delayChildren: 0.7 } },
-};
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 14 },
-  show: {
-    opacity: 1, y: 0,
-    transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] as [number,number,number,number] },
-  },
-};
+/* ─── HERO ─── */
+const stats = [
+  { value: "80+", label: "Years" },
+  { value: "Pan-India", label: "Supply" },
+  { value: "12+", label: "Mill Partners" },
+];
 
 export default function Hero() {
+  const { scrollY } = useScroll();
+  const bgY = useTransform(scrollY, [0, 700], [0, 120]);
+  const textY = useTransform(scrollY, [0, 700], [0, 60]);
+
   return (
     <section
       id="hero"
       aria-labelledby="hero-heading"
-      style={{
-        minHeight: "100vh",
-        background: "radial-gradient(ellipse at center, #1A1208 0%, #0A0704 60%, #000000 100%)",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-        padding: "clamp(5rem,10vw,7rem) clamp(1rem,4vw,2rem)",
-        position: "relative",
-        overflow: "hidden",
-      }}
+      style={{ position: "relative", minHeight: "100vh", display: "flex", flexDirection: "column", overflow: "hidden", background: "var(--bg)" }}
     >
-      {/* Ambient gold glow */}
-      <div aria-hidden="true" style={{
-        position: "absolute", inset: 0, pointerEvents: "none",
-        background: "radial-gradient(ellipse at 50% 50%, rgba(180,130,40,0.07) 0%, transparent 65%)",
-      }} />
-
-      {/* Decorative corner marks */}
-      {[
-        { top: "2rem", left: "2rem" },
-        { top: "2rem", right: "2rem", transform: "scaleX(-1)" },
-        { bottom: "2rem", left: "2rem", transform: "scaleY(-1)" },
-        { bottom: "2rem", right: "2rem", transform: "scale(-1,-1)" },
-      ].map((pos, i) => (
-        <div key={i} aria-hidden="true" style={{
-          position: "absolute", ...pos,
-          width: "48px", height: "48px",
-          borderTop: "1px solid rgba(180,130,40,0.25)",
-          borderLeft: "1px solid rgba(180,130,40,0.25)",
-          pointerEvents: "none",
-        }} />
-      ))}
-
-      {/* THE SCROLL */}
+      {/* Parallax dark background layer */}
       <motion.div
-        variants={scrollVariants}
-        initial="hidden"
-        animate="show"
-        style={{ width: "100%", maxWidth: "720px", transformOrigin: "center center" }}
+        style={{ y: bgY, position: "absolute", inset: "-20%", zIndex: 0, pointerEvents: "none" }}
+        aria-hidden="true"
       >
-        {/* Top wooden roller */}
         <div style={{
-          height: "28px",
-          borderRadius: "6px 6px 0 0",
-          background: "linear-gradient(to bottom, #3D2206 0%, #7A4A12 18%, #C48020 35%, #E8B848 50%, #C48020 65%, #7A4A12 82%, #3D2206 100%)",
-          boxShadow: "0 -4px 16px rgba(0,0,0,0.7), 0 4px 10px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,220,100,0.2)",
-          position: "relative",
-          zIndex: 2,
-        }}>
-          {/* Roller end caps */}
-          {[{ left: "12px" }, { right: "12px" }].map((pos, i) => (
-            <div key={i} style={{
-              position: "absolute", top: "3px", bottom: "3px",
-              width: "18px", borderRadius: "4px",
-              background: "linear-gradient(to bottom, #5C3210, #A06020, #5C3210)",
-              boxShadow: "inset 0 0 4px rgba(0,0,0,0.4)",
-              ...pos,
-            }} />
-          ))}
-        </div>
-
-        {/* Parchment body */}
+          position: "absolute", inset: 0,
+          background: "radial-gradient(ellipse at 25% 55%, rgba(201,168,76,0.06) 0%, transparent 55%), radial-gradient(ellipse at 75% 30%, rgba(201,168,76,0.04) 0%, transparent 45%)",
+        }} />
+        {/* Fine dot grid */}
         <div style={{
-          background: `
-            linear-gradient(
-              175deg,
-              #F0DFA8 0%, #EDD490 6%,
-              #F5E6B4 18%, #EED888 30%,
-              #F8EEC0 42%, #F0DC98 54%,
-              #F8EEC0 66%, #EED888 78%,
-              #F5E6B4 90%, #EDD490 96%,
-              #F0DFA8 100%
-            )
-          `,
-          padding: "clamp(2rem, 5vw, 3.5rem) clamp(1.5rem, 5vw, 3.5rem)",
-          position: "relative",
-          boxShadow: "0 0 60px rgba(0,0,0,0.8), inset 0 0 80px rgba(139,90,20,0.12)",
-          overflow: "hidden",
-        }}>
-          {/* Paper grain overlay */}
-          <div aria-hidden="true" style={{
-            position: "absolute", inset: 0, pointerEvents: "none",
-            backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.07'/%3E%3C/svg%3E")`,
-            backgroundSize: "180px 180px",
-            opacity: 0.6,
-            mixBlendMode: "multiply",
-          }} />
+          position: "absolute", inset: 0,
+          backgroundImage: "radial-gradient(rgba(255,255,255,0.08) 1px, transparent 1px)",
+          backgroundSize: "40px 40px",
+          maskImage: "radial-gradient(ellipse at 40% 50%, black 20%, transparent 70%)",
+          WebkitMaskImage: "radial-gradient(ellipse at 40% 50%, black 20%, transparent 70%)",
+        }} />
+      </motion.div>
 
-          {/* Aged edge vignette */}
-          <div aria-hidden="true" style={{
-            position: "absolute", inset: 0, pointerEvents: "none",
-            background: `
-              radial-gradient(ellipse at 0% 0%, rgba(120,70,10,0.18) 0%, transparent 50%),
-              radial-gradient(ellipse at 100% 0%, rgba(120,70,10,0.15) 0%, transparent 50%),
-              radial-gradient(ellipse at 0% 100%, rgba(120,70,10,0.18) 0%, transparent 50%),
-              radial-gradient(ellipse at 100% 100%, rgba(120,70,10,0.15) 0%, transparent 50%)
-            `,
-          }} />
+      {/* 3D paper geometry — right side */}
+      <div style={{ position: "absolute", inset: 0, zIndex: 1, pointerEvents: "none" }}>
+        <PaperGeometry />
+      </div>
 
-          {/* CONTENT */}
+      {/* MAIN CONTENT */}
+      <motion.div
+        style={{ y: textY, position: "relative", zIndex: 2, flex: 1, display: "flex", flexDirection: "column", justifyContent: "center" }}
+      >
+        <div className="section-container" style={{ paddingTop: "clamp(5rem,12vw,8rem)", paddingBottom: "3rem" }}>
+          {/* Eyebrow */}
           <motion.div
-            variants={contentVariants}
-            initial="hidden"
-            animate="show"
-            style={{ position: "relative", zIndex: 1, display: "flex", flexDirection: "column", alignItems: "center", gap: "1.25rem", textAlign: "center" }}
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "2rem" }}
           >
-            {/* Top ornamental */}
-            <motion.div variants={itemVariants} style={{ width: "100%" }}>
-              <OrnamentalDivider />
-            </motion.div>
-
-            {/* Establishment line */}
-            <motion.p variants={itemVariants} style={{
-              fontSize: "0.62rem",
-              fontWeight: 700,
-              letterSpacing: "0.32em",
-              textTransform: "uppercase",
-              color: "#7A4E14",
-              fontFamily: "var(--font-body)",
-            }}>
-              Running for over 4 Generations &nbsp;·&nbsp; Ludhiana, Punjab
-            </motion.p>
-
-            {/* Company name */}
-            <motion.div variants={itemVariants}>
-              <h1 id="hero-heading" style={{
-                fontFamily: "var(--font-display)",
-                fontSize: "clamp(2.8rem, 8vw, 5.5rem)",
-                fontWeight: 700,
-                color: "#2C1608",
-                lineHeight: 1.0,
-                letterSpacing: "-0.01em",
-                marginBottom: "0.1rem",
-              }}>
-                Khemka Papers
-              </h1>
-              <p style={{
-                fontFamily: "var(--font-display)",
-                fontSize: "clamp(0.95rem, 2.2vw, 1.3rem)",
-                fontStyle: "italic",
-                color: "#7A4E14",
-                letterSpacing: "0.04em",
-              }}>
-                Trusted B2B Paper Trading Across India
-              </p>
-            </motion.div>
-
-            {/* Mid ornamental */}
-            <motion.div variants={itemVariants} style={{ width: "80%" }}>
-              <OrnamentalDivider light />
-            </motion.div>
-
-            {/* Tagline */}
-            <motion.p variants={itemVariants} style={{
-              fontFamily: "var(--font-display)",
-              fontSize: "clamp(1.2rem, 3vw, 1.9rem)",
-              fontWeight: 600,
-              color: "#3A1E08",
-              lineHeight: 1.4,
-              maxWidth: "36ch",
-              fontStyle: "italic",
-            }}>
-              &ldquo;India&apos;s paper, sourced from the finest mills &mdash; delivered to your door for fifteen years.&rdquo;
-            </motion.p>
-
-            {/* Body */}
-            <motion.p variants={itemVariants} style={{
-              fontSize: "clamp(0.82rem, 1.4vw, 0.95rem)",
-              color: "#5C3A18",
-              lineHeight: 1.75,
-              maxWidth: "48ch",
-              fontFamily: "var(--font-body)",
-            }}>
-              Supplying poster paper, kraft, MG &amp; stiffener paper to printers,
-              packagers &amp; manufacturers across India. Mill-direct sourcing.
-              Formal GST invoicing. TReDS enabled.
-            </motion.p>
-
-            {/* Stats row */}
-            <motion.div variants={itemVariants} style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(3, 1fr)",
-              gap: "0",
-              width: "100%",
-              marginTop: "0.25rem",
-              borderTop: "1px solid rgba(139,100,20,0.3)",
-              borderBottom: "1px solid rgba(139,100,20,0.3)",
-            }}>
-              {stats.map((s, i) => (
-                <div key={s.label} style={{
-                  padding: "0.9rem 0.5rem",
-                  textAlign: "center",
-                  borderRight: i < stats.length - 1 ? "1px solid rgba(139,100,20,0.25)" : "none",
-                }}>
-                  <div style={{
-                    fontFamily: "var(--font-display)",
-                    fontSize: "clamp(1.3rem, 3vw, 2rem)",
-                    fontWeight: 700,
-                    color: "#5C3210",
-                    lineHeight: 1,
-                  }}>{s.value}</div>
-                  <div style={{
-                    fontSize: "0.6rem",
-                    fontWeight: 600,
-                    letterSpacing: "0.1em",
-                    textTransform: "uppercase",
-                    color: "#8B6018",
-                    marginTop: "0.3rem",
-                    fontFamily: "var(--font-body)",
-                  }}>{s.label}</div>
-                </div>
-              ))}
-            </motion.div>
-
-            {/* CTA buttons */}
-            <motion.div variants={itemVariants} style={{ display: "flex", flexWrap: "wrap", gap: "1rem", justifyContent: "center" }}>
-              <a
-                href="#products"
-                onClick={(e) => { e.preventDefault(); document.querySelector("#products")?.scrollIntoView({ behavior: "smooth" }); }}
-                style={{
-                  padding: "0.75rem 2rem",
-                  background: "linear-gradient(135deg, #5C3210, #8B4A18, #5C3210)",
-                  color: "#F5E6B4",
-                  fontFamily: "var(--font-body)",
-                  fontSize: "0.8rem",
-                  fontWeight: 700,
-                  letterSpacing: "0.14em",
-                  textTransform: "uppercase",
-                  border: "1px solid rgba(139,90,20,0.6)",
-                  borderRadius: "3px",
-                  boxShadow: "0 4px 16px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,220,100,0.1)",
-                  textDecoration: "none",
-                  transition: "all 0.2s ease",
-                  display: "inline-block",
-                }}
-                onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = "linear-gradient(135deg, #7A4418, #B05C20, #7A4418)"; }}
-                onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = "linear-gradient(135deg, #5C3210, #8B4A18, #5C3210)"; }}
-              >
-                View Products
-              </a>
-              <a
-                href="#contact"
-                onClick={(e) => { e.preventDefault(); document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" }); }}
-                style={{
-                  padding: "0.75rem 2rem",
-                  background: "transparent",
-                  color: "#5C3210",
-                  fontFamily: "var(--font-body)",
-                  fontSize: "0.8rem",
-                  fontWeight: 700,
-                  letterSpacing: "0.14em",
-                  textTransform: "uppercase",
-                  border: "1px solid rgba(92,50,16,0.5)",
-                  borderRadius: "3px",
-                  textDecoration: "none",
-                  transition: "all 0.2s ease",
-                  display: "inline-block",
-                }}
-                onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = "rgba(92,50,16,0.08)"; }}
-                onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = "transparent"; }}
-              >
-                Get a Quote
-              </a>
-            </motion.div>
-
-            {/* Bottom ornamental */}
-            <motion.div variants={itemVariants} style={{ width: "100%" }}>
-              <OrnamentalDivider />
-            </motion.div>
-
-            {/* Wax seal / stamp */}
-            <motion.div
-              variants={itemVariants}
-              style={{
-                width: "72px", height: "72px",
-                borderRadius: "50%",
-                background: "radial-gradient(circle at 38% 38%, #D44420, #8B1A0A)",
-                display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center",
-                boxShadow: "0 4px 16px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,100,80,0.2)",
-                border: "2px solid rgba(180,60,30,0.5)",
-              }}
-              aria-label="Quality assured seal"
-            >
-              <div style={{ fontSize: "0.36rem", fontWeight: 800, letterSpacing: "0.12em", color: "#F5D0B0", textTransform: "uppercase", textAlign: "center", lineHeight: 1.6 }}>
-                <div>QUALITY</div>
-                <div style={{ fontSize: "0.55rem" }}>✦</div>
-                <div>ASSURED</div>
-              </div>
-            </motion.div>
+            <div style={{ width: "28px", height: "1px", background: "var(--gold)" }} />
+            <span style={{ fontSize: "0.67rem", fontWeight: 600, letterSpacing: "0.22em", textTransform: "uppercase", color: "var(--gold)" }}>
+              B2B Paper Trading · Since 4 Generations
+            </span>
           </motion.div>
-        </div>
 
-        {/* Bottom wooden roller */}
-        <div style={{
-          height: "28px",
-          borderRadius: "0 0 6px 6px",
-          background: "linear-gradient(to bottom, #3D2206 0%, #7A4A12 18%, #C48020 35%, #E8B848 50%, #C48020 65%, #7A4A12 82%, #3D2206 100%)",
-          boxShadow: "0 4px 16px rgba(0,0,0,0.7), 0 -4px 8px rgba(0,0,0,0.4), inset 0 -1px 0 rgba(255,220,100,0.2)",
-          position: "relative",
-          zIndex: 2,
-        }}>
-          {[{ left: "12px" }, { right: "12px" }].map((pos, i) => (
-            <div key={i} style={{
-              position: "absolute", top: "3px", bottom: "3px",
-              width: "18px", borderRadius: "4px",
-              background: "linear-gradient(to bottom, #5C3210, #A06020, #5C3210)",
-              boxShadow: "inset 0 0 4px rgba(0,0,0,0.4)",
-              ...pos,
-            }} />
-          ))}
+          {/* Headline — Arclin-style split text */}
+          <div
+            id="hero-heading"
+            style={{
+              fontFamily: "var(--font-display)",
+              fontSize: "clamp(3.2rem, 9vw, 8rem)",
+              fontWeight: 700,
+              lineHeight: 0.95,
+              letterSpacing: "-0.03em",
+              marginBottom: "2rem",
+              maxWidth: "14ch",
+            }}
+          >
+            <div>
+              <SplitText text="Khemka" delay={0.3} />
+            </div>
+            <div>
+              <SplitText
+                text="Papers"
+                delay={0.5}
+                style={{ color: "var(--gold)", textShadow: "0 0 80px rgba(201,168,76,0.25)" }}
+              />
+            </div>
+          </div>
+
+          {/* Cycling subheadline */}
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 1.0 }}
+            style={{
+              fontSize: "clamp(1rem, 2.2vw, 1.4rem)",
+              color: "var(--text-2)",
+              marginBottom: "0.6rem",
+              display: "flex",
+              alignItems: "center",
+              gap: "0.5rem",
+              flexWrap: "wrap",
+            }}
+          >
+            <span>India&apos;s paper — delivered to</span>
+            <CyclingText />
+          </motion.div>
+
+          <motion.p
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 1.15 }}
+            style={{ fontSize: "clamp(0.85rem, 1.3vw, 0.95rem)", color: "var(--text-3)", maxWidth: "44ch", lineHeight: 1.7, marginBottom: "2.5rem" }}
+          >
+            Mill-direct sourcing · Pan-India logistics · Formal GST invoicing · TReDS enabled
+          </motion.p>
+
+          {/* CTAs */}
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 1.3 }}
+            style={{ display: "flex", gap: "1rem", flexWrap: "wrap", marginBottom: "4rem" }}
+          >
+            <a
+              href="#products"
+              onClick={(e) => { e.preventDefault(); document.querySelector("#products")?.scrollIntoView({ behavior: "smooth" }); }}
+              style={{
+                padding: "0.85rem 2.2rem",
+                background: "var(--gold)",
+                color: "#06070A",
+                fontSize: "0.82rem",
+                fontWeight: 700,
+                letterSpacing: "0.1em",
+                textTransform: "uppercase",
+                border: "none",
+                borderRadius: "4px",
+                textDecoration: "none",
+                transition: "background 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease",
+                boxShadow: "0 4px 24px rgba(201,168,76,0.25)",
+              }}
+              onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = "var(--gold-light)"; (e.currentTarget as HTMLElement).style.transform = "translateY(-2px)"; (e.currentTarget as HTMLElement).style.boxShadow = "0 8px 32px rgba(201,168,76,0.35)"; }}
+              onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = "var(--gold)"; (e.currentTarget as HTMLElement).style.transform = "translateY(0)"; (e.currentTarget as HTMLElement).style.boxShadow = "0 4px 24px rgba(201,168,76,0.25)"; }}
+            >
+              View Products
+            </a>
+            <a
+              href="#contact"
+              onClick={(e) => { e.preventDefault(); document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" }); }}
+              style={{
+                padding: "0.85rem 2.2rem",
+                background: "transparent",
+                color: "var(--text)",
+                fontSize: "0.82rem",
+                fontWeight: 700,
+                letterSpacing: "0.1em",
+                textTransform: "uppercase",
+                border: "1px solid var(--border)",
+                borderRadius: "4px",
+                textDecoration: "none",
+                transition: "border-color 0.2s ease, color 0.2s ease, transform 0.15s ease",
+              }}
+              onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.borderColor = "var(--gold)"; (e.currentTarget as HTMLElement).style.color = "var(--gold)"; (e.currentTarget as HTMLElement).style.transform = "translateY(-2px)"; }}
+              onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.borderColor = "var(--border)"; (e.currentTarget as HTMLElement).style.color = "var(--text)"; (e.currentTarget as HTMLElement).style.transform = "translateY(0)"; }}
+            >
+              Get a Quote
+            </a>
+          </motion.div>
+
+          {/* Stats */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1.5, duration: 0.6 }}
+            style={{ display: "flex", gap: "clamp(1.5rem, 4vw, 3.5rem)", flexWrap: "wrap" }}
+          >
+            {stats.map((s, i) => (
+              <div key={i} style={{ display: "flex", flexDirection: "column", gap: "4px" }}>
+                <span style={{ fontFamily: "var(--font-display)", fontSize: "clamp(1.5rem, 3vw, 2.2rem)", fontWeight: 700, color: "var(--text)", lineHeight: 1, letterSpacing: "-0.02em" }}>
+                  {s.value}
+                </span>
+                <span style={{ fontSize: "0.67rem", fontWeight: 600, letterSpacing: "0.16em", textTransform: "uppercase", color: "var(--text-3)" }}>
+                  {s.label}
+                </span>
+              </div>
+            ))}
+          </motion.div>
         </div>
       </motion.div>
 
-      {/* Scroll down hint */}
+      {/* Ticker strip at bottom of hero */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.8 }}
+        style={{ position: "relative", zIndex: 2 }}
+      >
+        <Ticker />
+      </motion.div>
+
+      {/* Scroll indicator */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 2 }}
-        style={{ position: "absolute", bottom: "2rem", display: "flex", flexDirection: "column", alignItems: "center", gap: "6px" }}
+        style={{ position: "absolute", bottom: "5rem", left: "clamp(1.25rem, 5vw, 4rem)", display: "flex", flexDirection: "column", alignItems: "flex-start", gap: "8px", zIndex: 2 }}
         aria-hidden="true"
       >
-        <span style={{ fontSize: "0.58rem", letterSpacing: "0.22em", color: "rgba(180,130,40,0.45)", textTransform: "uppercase" }}>Scroll</span>
         <motion.div
-          animate={{ y: [0, 7, 0] }}
-          transition={{ repeat: Infinity, duration: 1.8, ease: "easeInOut" }}
-          style={{ width: "1px", height: "32px", background: "linear-gradient(to bottom, rgba(180,130,40,0.6), transparent)" }}
-        />
+          animate={{ y: [0, 8, 0] }}
+          transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
+          style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "4px" }}
+        >
+          <div style={{ width: "1px", height: "40px", background: "linear-gradient(to bottom, var(--gold), transparent)" }} />
+          <span style={{ fontSize: "0.58rem", letterSpacing: "0.2em", color: "var(--text-3)", textTransform: "uppercase" }}>Scroll</span>
+        </motion.div>
       </motion.div>
     </section>
   );

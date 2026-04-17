@@ -2,48 +2,53 @@
 
 /* ============================================
    DESIGN SYSTEM — KHEMKA PAPERS
-   Aesthetic: Luxury-Dark / Industrial Premium
-   Palette: Deep Black / Warm Gold / Off-White
+   Arclin-inspired: Deep dark navy-black,
+   warm gold accent, clean off-white text
    ============================================ */
 
 :root {
-  /* Core dark palette */
-  --black:         #09090B;
-  --black-mid:     #0F0F12;
-  --black-card:    #141418;
-  --black-border:  #1E1E24;
-  --black-raised:  #1A1A20;
+  /* Core palette */
+  --bg:            #060709;
+  --bg-2:          #0B0C11;
+  --bg-3:          #101218;
+  --card:          #13151E;
+  --card-raised:   #191C27;
+  --border:        rgba(255, 255, 255, 0.06);
+  --border-gold:   rgba(201, 168, 76, 0.18);
+  --border-strong: rgba(201, 168, 76, 0.32);
 
-  /* Gold accent */
-  --gold:          #D4A853;
-  --gold-light:    #EAC476;
-  --gold-dark:     #A87E35;
-  --gold-glow:     rgba(212, 168, 83, 0.18);
-  --gold-subtle:   rgba(212, 168, 83, 0.08);
+  /* Gold */
+  --gold:          #C9A84C;
+  --gold-light:    #E2C06A;
+  --gold-dark:     #9A7A30;
+  --gold-subtle:   rgba(201, 168, 76, 0.07);
+  --gold-glow:     rgba(201, 168, 76, 0.15);
 
   /* Text */
-  --text-primary:   #F0EBE1;
-  --text-secondary: #9A9390;
-  --text-muted:     #5A5652;
-  --text-gold:      #D4A853;
-
-  /* Borders */
-  --border:         rgba(212, 168, 83, 0.14);
-  --border-strong:  rgba(212, 168, 83, 0.28);
+  --text:          #F2EDE4;
+  --text-2:        #9B9890;
+  --text-3:        #55524E;
 
   /* Shadows */
-  --shadow-sm:  0 1px 4px rgba(0,0,0,0.5);
-  --shadow-md:  0 4px 20px rgba(0,0,0,0.6);
-  --shadow-lg:  0 12px 48px rgba(0,0,0,0.7);
-  --shadow-gold: 0 4px 28px rgba(212, 168, 83, 0.2);
+  --shadow-sm:   0 1px 4px rgba(0,0,0,0.6);
+  --shadow-md:   0 6px 24px rgba(0,0,0,0.7);
+  --shadow-lg:   0 16px 56px rgba(0,0,0,0.8);
+  --shadow-gold: 0 8px 32px rgba(201,168,76,0.18);
 
   /* Layout */
-  --section-padding: clamp(4rem, 8vw, 8rem);
-  --container-max: 1280px;
+  --section-padding: clamp(5rem, 9vw, 9rem);
+  --container-max:   1320px;
+  --ease:            cubic-bezier(0.22, 1, 0.36, 1);
 
-  /* Transitions */
-  --transition-fast: 150ms ease;
-  --transition-base: 300ms ease;
+  /* Aliases (used across components) */
+  --black:           var(--bg);
+  --black-mid:       var(--bg-2);
+  --black-card:      var(--card);
+  --black-raised:    var(--card-raised);
+  --black-border:    rgba(255, 255, 255, 0.08);
+  --text-primary:    var(--text);
+  --text-secondary:  var(--text-2);
+  --text-muted:      var(--text-3);
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -52,45 +57,17 @@ html {
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-rendering: optimizeLegibility;
 }
 
 body {
-  background-color: var(--black);
-  color: var(--text-primary);
+  background: var(--bg);
+  color: var(--text);
   overflow-x: hidden;
+  font-family: var(--font-body, system-ui, sans-serif);
 }
 
 /* ============================================
-   GRAIN TEXTURE OVERLAY
-   ============================================ */
-.grain-overlay { position: relative; }
-.grain-overlay::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.05'/%3E%3C/svg%3E");
-  background-size: 200px 200px;
-  opacity: 0.35;
-  mix-blend-mode: overlay;
-  z-index: 1;
-  pointer-events: none;
-}
-.grain-overlay > * { position: relative; z-index: 2; }
-
-/* ============================================
-   HERO BACKGROUND
-   ============================================ */
-.hero-pattern {
-  background-color: #000000;
-  background-image:
-    radial-gradient(ellipse at 20% 60%, rgba(212,168,83,0.06) 0%, transparent 55%),
-    radial-gradient(ellipse at 80% 20%, rgba(212,168,83,0.04) 0%, transparent 45%);
-}
-
-/* ============================================
-   SECTION UTILITIES
+   CONTAINER & SECTION UTILS
    ============================================ */
 .section-container {
   max-width: var(--container-max);
@@ -103,9 +80,9 @@ body {
 }
 .section-label {
   display: inline-block;
-  font-size: 0.68rem;
+  font-size: 0.67rem;
   font-weight: 600;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
   color: var(--gold);
   margin-bottom: 0.85rem;
@@ -124,13 +101,13 @@ body {
 .tag-chip {
   display: inline-flex;
   align-items: center;
-  padding: 0.18rem 0.6rem;
+  padding: 0.2rem 0.65rem;
   background: var(--gold-subtle);
-  border: 1px solid var(--border);
+  border: 1px solid var(--border-gold);
   border-radius: 999px;
-  font-size: 0.68rem;
+  font-size: 0.67rem;
   font-weight: 600;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.07em;
   color: var(--gold-dark);
   text-transform: uppercase;
 }
@@ -142,25 +119,14 @@ body {
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
-  padding: 0.4rem 0.85rem;
+  padding: 0.4rem 0.9rem;
   background: var(--gold-subtle);
-  border: 1px solid var(--border);
+  border: 1px solid var(--border-gold);
   border-radius: 6px;
   font-size: 0.75rem;
   font-weight: 600;
   letter-spacing: 0.04em;
-  color: var(--text-primary);
-}
-
-/* ============================================
-   STAT CARD
-   ============================================ */
-.stat-card {
-  background: rgba(255,255,255,0.03);
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 1.2rem 1.5rem;
-  backdrop-filter: blur(8px);
+  color: var(--text);
 }
 
 /* ============================================
@@ -168,31 +134,10 @@ body {
    ============================================ */
 .paper-stack { position: relative; width: 280px; height: 320px; }
 .paper-layer { position: absolute; border-radius: 4px; box-shadow: var(--shadow-md); }
-.paper-layer-1 {
-  width: 220px; height: 280px;
-  background: var(--black-border);
-  top: 40px; left: 60px;
-  transform: rotate(6deg);
-}
-.paper-layer-2 {
-  width: 220px; height: 280px;
-  background: var(--black-raised);
-  top: 20px; left: 40px;
-  transform: rotate(3deg);
-}
-.paper-layer-3 {
-  width: 220px; height: 280px;
-  background: var(--black-card);
-  top: 0; left: 20px;
-  border: 1px solid var(--border);
-}
-.paper-layer-gold {
-  position: absolute;
-  width: 55px; height: 3px;
-  background: linear-gradient(90deg, var(--gold), var(--gold-light));
-  border-radius: 2px;
-  bottom: 64px; left: 44px;
-}
+.paper-layer-1 { width: 220px; height: 280px; background: rgba(255,255,255,0.03); top: 40px; left: 60px; transform: rotate(6deg); border: 1px solid var(--border); }
+.paper-layer-2 { width: 220px; height: 280px; background: rgba(255,255,255,0.04); top: 20px; left: 40px; transform: rotate(3deg); border: 1px solid var(--border); }
+.paper-layer-3 { width: 220px; height: 280px; background: var(--card); top: 0; left: 20px; border: 1px solid var(--border-gold); }
+.paper-layer-gold { position: absolute; width: 55px; height: 3px; background: linear-gradient(90deg, var(--gold), var(--gold-light)); border-radius: 2px; bottom: 64px; left: 44px; }
 
 /* ============================================
    FORM STYLES
@@ -202,71 +147,70 @@ body {
   background: rgba(255,255,255,0.04);
   border: 1px solid var(--border);
   border-radius: 8px;
-  padding: 0.8rem 1rem;
+  padding: 0.82rem 1rem;
   font-size: 0.95rem;
-  color: var(--text-primary);
-  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+  color: var(--text);
+  transition: border-color 150ms ease, box-shadow 150ms ease;
   outline: none;
   font-family: inherit;
 }
-.form-input:focus {
-  border-color: var(--gold);
-  box-shadow: 0 0 0 3px rgba(212,168,83,0.1);
-}
-.form-input::placeholder { color: var(--text-muted); }
-.form-input.error {
-  border-color: #EF4444;
-  box-shadow: 0 0 0 3px rgba(239,68,68,0.1);
-}
-/* Select dark styling */
-.form-input option {
-  background: var(--black-card);
-  color: var(--text-primary);
-}
-.form-label {
-  display: block;
-  font-size: 0.75rem;
-  font-weight: 600;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--text-secondary);
-  margin-bottom: 0.4rem;
-}
-.form-error { font-size: 0.76rem; color: #EF4444; margin-top: 0.3rem; }
+.form-input:focus { border-color: var(--gold); box-shadow: 0 0 0 3px var(--gold-subtle); }
+.form-input::placeholder { color: var(--text-3); }
+.form-input.error { border-color: #EF4444; box-shadow: 0 0 0 3px rgba(239,68,68,0.1); }
+.form-input option { background: var(--card); color: var(--text); }
+.form-label { display: block; font-size: 0.74rem; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase; color: var(--text-2); margin-bottom: 0.42rem; }
+.form-error { font-size: 0.75rem; color: #EF4444; margin-top: 0.32rem; }
 
 /* ============================================
-   SCROLLBAR
+   CLIP-PATH REVEAL (used by sections)
+   ============================================ */
+.clip-reveal {
+  clip-path: inset(0 0 100% 0);
+  transition: clip-path 0.9s var(--ease);
+}
+.clip-reveal.visible {
+  clip-path: inset(0 0 0% 0);
+}
+
+/* ============================================
+   SCROLL PROGRESS BAR
+   ============================================ */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--gold), var(--gold-light));
+  z-index: 100;
+  transform-origin: left;
+}
+
+/* ============================================
+   MARQUEE TICKER
+   ============================================ */
+.marquee-track {
+  display: flex;
+  gap: 0;
+  animation: marquee 28s linear infinite;
+  white-space: nowrap;
+}
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* ============================================
+   SCROLLBAR / SELECTION / FOCUS
    ============================================ */
 ::-webkit-scrollbar { width: 5px; }
-::-webkit-scrollbar-track { background: var(--black-mid); }
+::-webkit-scrollbar-track { background: var(--bg-2); }
 ::-webkit-scrollbar-thumb { background: var(--gold-dark); border-radius: 3px; }
-
-/* ============================================
-   SELECTION / FOCUS
-   ============================================ */
-::selection { background: rgba(212,168,83,0.2); color: var(--text-primary); }
+::selection { background: rgba(201,168,76,0.2); color: var(--text); }
 :focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; border-radius: 4px; }
 
 /* ============================================
    ANIMATED UNDERLINE
    ============================================ */
 .animated-underline { position: relative; display: inline-block; }
-.animated-underline::after {
-  content: '';
-  position: absolute;
-  bottom: -2px; left: 0;
-  width: 0; height: 1px;
-  background: var(--gold);
-  transition: width var(--transition-base);
-}
+.animated-underline::after { content: ''; position: absolute; bottom: -2px; left: 0; width: 0; height: 1px; background: var(--gold); transition: width 0.3s ease; }
 .animated-underline:hover::after { width: 100%; }
-
-/* ============================================
-   FIREWORKS CANVAS CONTAINER
-   ============================================ */
-.fireworks-container {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-}
