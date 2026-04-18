@@ -233,8 +233,8 @@ export default function Hero() {
         }} />
       </motion.div>
 
-      {/* 3D paper geometry — right side */}
-      <div style={{ position: "absolute", inset: 0, zIndex: 1, pointerEvents: "none" }}>
+      {/* 3D paper geometry — right side, desktop only */}
+      <div className="hidden md:block" style={{ position: "absolute", inset: 0, zIndex: 1, pointerEvents: "none" }}>
         <PaperGeometry />
       </div>
 
