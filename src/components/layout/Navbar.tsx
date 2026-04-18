@@ -52,13 +52,13 @@ export default function Navbar() {
         }}
         role="banner"
       >
-        <div className="section-container flex items-center justify-between" style={{ height: "84px" }}>
+        <div className="section-container flex items-center justify-between" style={{ height: "136px" }}>
           <a
             href="#"
             onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: "smooth" }); }}
             aria-label="Khemka Papers — Home"
           >
-            <Logo height={62} />
+            <Logo height={124} />
           </a>
 
           <nav aria-label="Main navigation" className="hidden md:flex items-center gap-8">
