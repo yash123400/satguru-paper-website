@@ -58,7 +58,7 @@ export default function Navbar() {
             onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: "smooth" }); }}
             aria-label="Khemka Papers — Home"
           >
-            <Logo height={36} />
+            <Logo height={44} />
           </a>
 
           <nav aria-label="Main navigation" className="hidden md:flex items-center gap-8">
@@ -115,7 +115,7 @@ export default function Navbar() {
               role="dialog" aria-modal="true" aria-label="Navigation menu"
             >
               <div className="flex items-center justify-between p-6" style={{ borderBottom: "1px solid var(--border)" }}>
-                <Logo height={28} />
+                <Logo height={36} />
                 <button onClick={() => setMenuOpen(false)}
                   className="w-9 h-9 flex items-center justify-center rounded-lg"
                   style={{ color: "var(--text-primary)", background: "rgba(26,18,8,0.06)" }}
