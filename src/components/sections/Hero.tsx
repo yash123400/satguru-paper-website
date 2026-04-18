@@ -89,9 +89,9 @@ function PaperGeometry() {
       <div style={{ perspective: "900px", width: "clamp(200px, 25vw, 360px)", height: "clamp(260px, 32vw, 460px)" }}>
         {/* Back sheets */}
         {[
-          { rotate: "rotateY(-22deg) rotateX(6deg) rotateZ(8deg) translateZ(-60px)", bg: "rgba(201,168,76,0.05)", delay: 0.9 },
-          { rotate: "rotateY(-22deg) rotateX(6deg) rotateZ(4deg) translateZ(-30px)", bg: "rgba(201,168,76,0.08)", delay: 1.0 },
-          { rotate: "rotateY(-22deg) rotateX(6deg) rotateZ(0deg) translateZ(0px)",   bg: "var(--card)",           delay: 1.1 },
+          { rotate: "rotateY(-22deg) rotateX(6deg) rotateZ(8deg) translateZ(-60px)", bg: "rgba(181,98,42,0.04)", delay: 0.9 },
+          { rotate: "rotateY(-22deg) rotateX(6deg) rotateZ(4deg) translateZ(-30px)", bg: "rgba(181,98,42,0.07)", delay: 1.0 },
+          { rotate: "rotateY(-22deg) rotateX(6deg) rotateZ(0deg) translateZ(0px)",   bg: "var(--card)",          delay: 1.1 },
         ].map((sheet, i) => (
           <motion.div
             key={i}
@@ -102,10 +102,10 @@ function PaperGeometry() {
               position: "absolute",
               inset: 0,
               background: sheet.bg,
-              border: `1px solid ${i === 2 ? "rgba(201,168,76,0.22)" : "rgba(255,255,255,0.05)"}`,
+              border: `1px solid ${i === 2 ? "rgba(181,98,42,0.28)" : "rgba(26,18,8,0.07)"}`,
               borderRadius: "6px",
               transform: sheet.rotate,
-              boxShadow: i === 2 ? "0 24px 80px rgba(0,0,0,0.7), 0 0 0 1px rgba(201,168,76,0.1)" : "none",
+              boxShadow: i === 2 ? "0 24px 80px rgba(26,18,8,0.14), 0 0 0 1px rgba(181,98,42,0.12)" : "none",
               transformStyle: "preserve-3d",
             }}
           >
@@ -116,22 +116,22 @@ function PaperGeometry() {
                 <div>
                   <div style={{ width: "42%", height: "3px", background: "linear-gradient(90deg, var(--gold), var(--gold-light))", borderRadius: "2px", marginBottom: "1.2rem" }} />
                   {[80, 65, 72, 55, 68].map((w, j) => (
-                    <div key={j} style={{ height: "8px", width: `${w}%`, background: "rgba(255,255,255,0.06)", borderRadius: "4px", marginBottom: "10px" }} />
+                    <div key={j} style={{ height: "8px", width: `${w}%`, background: "rgba(26,18,8,0.07)", borderRadius: "4px", marginBottom: "10px" }} />
                   ))}
                 </div>
                 {/* Middle content */}
-                <div style={{ borderTop: "1px solid rgba(201,168,76,0.12)", borderBottom: "1px solid rgba(201,168,76,0.12)", padding: "1rem 0", display: "flex", flexDirection: "column", gap: "8px" }}>
+                <div style={{ borderTop: "1px solid rgba(181,98,42,0.15)", borderBottom: "1px solid rgba(181,98,42,0.15)", padding: "1rem 0", display: "flex", flexDirection: "column", gap: "8px" }}>
                   {[40, 55, 48].map((w, j) => (
-                    <div key={j} style={{ height: "6px", width: `${w}%`, background: "rgba(201,168,76,0.15)", borderRadius: "3px" }} />
+                    <div key={j} style={{ height: "6px", width: `${w}%`, background: "rgba(181,98,42,0.16)", borderRadius: "3px" }} />
                   ))}
                 </div>
                 {/* Stamp */}
                 <div style={{ display: "flex", justifyContent: "flex-end" }}>
                   <div style={{
                     width: "56px", height: "56px", borderRadius: "50%",
-                    border: "1.5px solid rgba(201,168,76,0.35)",
+                    border: "1.5px solid rgba(181,98,42,0.38)",
                     display: "flex", alignItems: "center", justifyContent: "center",
-                    background: "rgba(201,168,76,0.05)",
+                    background: "rgba(181,98,42,0.06)",
                   }}>
                     <div style={{ textAlign: "center", fontSize: "0.3rem", fontWeight: 800, letterSpacing: "0.1em", color: "var(--gold)", textTransform: "uppercase", lineHeight: 1.7 }}>
                       <div>MILL</div><div style={{ fontSize: "0.45rem" }}>✦</div><div>DIRECT</div>
@@ -178,7 +178,7 @@ function Ticker() {
         borderTop: "1px solid var(--border)",
         borderBottom: "1px solid var(--border)",
         padding: "0.75rem 0",
-        background: "rgba(255,255,255,0.015)",
+        background: "rgba(26,18,8,0.03)",
       }}
       aria-hidden="true"
     >
@@ -221,12 +221,12 @@ export default function Hero() {
       >
         <div style={{
           position: "absolute", inset: 0,
-          background: "radial-gradient(ellipse at 25% 55%, rgba(201,168,76,0.06) 0%, transparent 55%), radial-gradient(ellipse at 75% 30%, rgba(201,168,76,0.04) 0%, transparent 45%)",
+          background: "radial-gradient(ellipse at 25% 55%, rgba(181,98,42,0.07) 0%, transparent 55%), radial-gradient(ellipse at 75% 30%, rgba(181,98,42,0.04) 0%, transparent 45%)",
         }} />
         {/* Fine dot grid */}
         <div style={{
           position: "absolute", inset: 0,
-          backgroundImage: "radial-gradient(rgba(255,255,255,0.08) 1px, transparent 1px)",
+          backgroundImage: "radial-gradient(rgba(26,18,8,0.10) 1px, transparent 1px)",
           backgroundSize: "40px 40px",
           maskImage: "radial-gradient(ellipse at 40% 50%, black 20%, transparent 70%)",
           WebkitMaskImage: "radial-gradient(ellipse at 40% 50%, black 20%, transparent 70%)",
@@ -276,7 +276,7 @@ export default function Hero() {
               <SplitText
                 text="Papers"
                 delay={0.5}
-                style={{ color: "var(--gold)", textShadow: "0 0 80px rgba(201,168,76,0.25)" }}
+                style={{ color: "var(--gold)", textShadow: "0 0 60px rgba(181,98,42,0.18)" }}
               />
             </div>
           </div>
@@ -322,7 +322,7 @@ export default function Hero() {
               style={{
                 padding: "0.85rem 2.2rem",
                 background: "var(--gold)",
-                color: "#06070A",
+                color: "#FAFAF6",
                 fontSize: "0.82rem",
                 fontWeight: 700,
                 letterSpacing: "0.1em",

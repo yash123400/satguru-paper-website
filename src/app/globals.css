@@ -2,38 +2,38 @@
 
 /* ============================================
    DESIGN SYSTEM — KHEMKA PAPERS
-   Arclin-inspired: Deep dark navy-black,
-   warm gold accent, clean off-white text
+   Warm off-white · Cream · Copper-rust accent
+   Palette drawn from the KP logo identity
    ============================================ */
 
 :root {
   /* Core palette */
-  --bg:            #060709;
-  --bg-2:          #0B0C11;
-  --bg-3:          #101218;
-  --card:          #13151E;
-  --card-raised:   #191C27;
-  --border:        rgba(255, 255, 255, 0.06);
-  --border-gold:   rgba(201, 168, 76, 0.18);
-  --border-strong: rgba(201, 168, 76, 0.32);
+  --bg:            #FAFAF6;
+  --bg-2:          #F4EDE0;
+  --bg-3:          #EDE3D3;
+  --card:          #FFFFFF;
+  --card-raised:   #F8F3EC;
+  --border:        rgba(26, 18, 8, 0.10);
+  --border-gold:   rgba(181, 98, 42, 0.20);
+  --border-strong: rgba(181, 98, 42, 0.40);
 
-  /* Gold */
-  --gold:          #C9A84C;
-  --gold-light:    #E2C06A;
-  --gold-dark:     #9A7A30;
-  --gold-subtle:   rgba(201, 168, 76, 0.07);
-  --gold-glow:     rgba(201, 168, 76, 0.15);
+  /* Copper / rust accent — matches the KP logo "P" */
+  --gold:          #B5622A;
+  --gold-light:    #D4845A;
+  --gold-dark:     #8B4513;
+  --gold-subtle:   rgba(181, 98, 42, 0.08);
+  --gold-glow:     rgba(181, 98, 42, 0.16);
 
-  /* Text */
-  --text:          #F2EDE4;
-  --text-2:        #9B9890;
-  --text-3:        #55524E;
+  /* Text — warm dark-brown family */
+  --text:          #1A1208;
+  --text-2:        #6B5744;
+  --text-3:        #A8917C;
 
-  /* Shadows */
-  --shadow-sm:   0 1px 4px rgba(0,0,0,0.6);
-  --shadow-md:   0 6px 24px rgba(0,0,0,0.7);
-  --shadow-lg:   0 16px 56px rgba(0,0,0,0.8);
-  --shadow-gold: 0 8px 32px rgba(201,168,76,0.18);
+  /* Shadows (warm-tinted) */
+  --shadow-sm:   0 1px 4px rgba(26,18,8,0.10);
+  --shadow-md:   0 6px 24px rgba(26,18,8,0.12);
+  --shadow-lg:   0 16px 56px rgba(26,18,8,0.16);
+  --shadow-gold: 0 8px 32px rgba(181,98,42,0.18);
 
   /* Layout */
   --section-padding: clamp(5rem, 9vw, 9rem);
@@ -45,7 +45,7 @@
   --black-mid:       var(--bg-2);
   --black-card:      var(--card);
   --black-raised:    var(--card-raised);
-  --black-border:    rgba(255, 255, 255, 0.08);
+  --black-border:    rgba(26, 18, 8, 0.08);
   --text-primary:    var(--text);
   --text-secondary:  var(--text-2);
   --text-muted:      var(--text-3);
@@ -134,8 +134,8 @@ body {
    ============================================ */
 .paper-stack { position: relative; width: 280px; height: 320px; }
 .paper-layer { position: absolute; border-radius: 4px; box-shadow: var(--shadow-md); }
-.paper-layer-1 { width: 220px; height: 280px; background: rgba(255,255,255,0.03); top: 40px; left: 60px; transform: rotate(6deg); border: 1px solid var(--border); }
-.paper-layer-2 { width: 220px; height: 280px; background: rgba(255,255,255,0.04); top: 20px; left: 40px; transform: rotate(3deg); border: 1px solid var(--border); }
+.paper-layer-1 { width: 220px; height: 280px; background: rgba(26,18,8,0.04); top: 40px; left: 60px; transform: rotate(6deg); border: 1px solid var(--border); }
+.paper-layer-2 { width: 220px; height: 280px; background: rgba(26,18,8,0.06); top: 20px; left: 40px; transform: rotate(3deg); border: 1px solid var(--border); }
 .paper-layer-3 { width: 220px; height: 280px; background: var(--card); top: 0; left: 20px; border: 1px solid var(--border-gold); }
 .paper-layer-gold { position: absolute; width: 55px; height: 3px; background: linear-gradient(90deg, var(--gold), var(--gold-light)); border-radius: 2px; bottom: 64px; left: 44px; }
 
@@ -144,7 +144,7 @@ body {
    ============================================ */
 .form-input {
   width: 100%;
-  background: rgba(255,255,255,0.04);
+  background: var(--bg);
   border: 1px solid var(--border);
   border-radius: 8px;
   padding: 0.82rem 1rem;
@@ -156,10 +156,10 @@ body {
 }
 .form-input:focus { border-color: var(--gold); box-shadow: 0 0 0 3px var(--gold-subtle); }
 .form-input::placeholder { color: var(--text-3); }
-.form-input.error { border-color: #EF4444; box-shadow: 0 0 0 3px rgba(239,68,68,0.1); }
+.form-input.error { border-color: #D9542B; box-shadow: 0 0 0 3px rgba(217,84,43,0.10); }
 .form-input option { background: var(--card); color: var(--text); }
 .form-label { display: block; font-size: 0.74rem; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase; color: var(--text-2); margin-bottom: 0.42rem; }
-.form-error { font-size: 0.75rem; color: #EF4444; margin-top: 0.32rem; }
+.form-error { font-size: 0.75rem; color: #D9542B; margin-top: 0.32rem; }
 
 /* ============================================
    CLIP-PATH REVEAL (used by sections)
@@ -205,7 +205,7 @@ body {
 ::-webkit-scrollbar { width: 5px; }
 ::-webkit-scrollbar-track { background: var(--bg-2); }
 ::-webkit-scrollbar-thumb { background: var(--gold-dark); border-radius: 3px; }
-::selection { background: rgba(201,168,76,0.2); color: var(--text); }
+::selection { background: rgba(181,98,42,0.15); color: var(--text); }
 :focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; border-radius: 4px; }
 
 /* ============================================

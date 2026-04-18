@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
+import Logo from "@/components/ui/Logo";
 
 const navLinks = [
   { label: "Products", href: "#products" },
@@ -46,7 +47,7 @@ export default function Navbar() {
         className="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
         style={{
           backdropFilter: scrolled ? "blur(20px) saturate(180%)" : "none",
-          backgroundColor: scrolled ? "rgba(9,9,11,0.9)" : "transparent",
+          backgroundColor: scrolled ? "rgba(250,250,246,0.94)" : "transparent",
           borderBottom: scrolled ? "1px solid var(--border)" : "1px solid transparent",
         }}
         role="banner"
@@ -57,13 +58,7 @@ export default function Navbar() {
             onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: "smooth" }); }}
             aria-label="Khemka Papers — Home"
           >
-            <span style={{ fontFamily: "var(--font-display)", fontSize: "1.55rem", color: "var(--text-primary)", letterSpacing: "-0.02em", fontWeight: 700 }}>
-              Khemka Papers
-            </span>
-            <br />
-            <span style={{ fontSize: "0.6rem", letterSpacing: "0.22em", textTransform: "uppercase", color: "var(--gold)", fontWeight: 600, marginTop: "-2px", display: "block" }}>
-              Ludhiana · Since 2009
-            </span>
+            <Logo height={36} />
           </a>
 
           <nav aria-label="Main navigation" className="hidden md:flex items-center gap-8">
@@ -81,7 +76,7 @@ export default function Navbar() {
             <a href="#contact"
               onClick={(e) => { e.preventDefault(); handleNavClick("#contact"); }}
               className="px-5 py-2.5 rounded-lg text-sm font-semibold transition-all duration-200 active:scale-95"
-              style={{ background: "var(--gold)", color: "#0A0A0B", letterSpacing: "0.02em" }}
+              style={{ background: "var(--gold)", color: "#FAFAF6", letterSpacing: "0.02em" }}
               onMouseEnter={(e) => (e.currentTarget.style.background = "var(--gold-light)")}
               onMouseLeave={(e) => (e.currentTarget.style.background = "var(--gold)")}
             >
@@ -91,7 +86,7 @@ export default function Navbar() {
 
           <button
             className="md:hidden flex items-center justify-center w-10 h-10 rounded-lg transition-colors"
-            style={{ color: "var(--text-primary)", background: "rgba(255,255,255,0.05)", border: "1px solid var(--border)" }}
+            style={{ color: "var(--text-primary)", background: "rgba(26,18,8,0.05)", border: "1px solid var(--border)" }}
             onClick={() => setMenuOpen(!menuOpen)}
             aria-label={menuOpen ? "Close menu" : "Open menu"}
             aria-expanded={menuOpen}
@@ -108,7 +103,7 @@ export default function Navbar() {
               initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
               transition={{ duration: 0.2 }}
               className="fixed inset-0 z-40 md:hidden"
-              style={{ background: "rgba(0,0,0,0.75)", backdropFilter: "blur(4px)" }}
+              style={{ background: "rgba(26,18,8,0.45)", backdropFilter: "blur(4px)" }}
               onClick={() => setMenuOpen(false)}
               aria-hidden="true"
             />
@@ -116,16 +111,14 @@ export default function Navbar() {
               initial={{ x: "100%" }} animate={{ x: 0 }} exit={{ x: "100%" }}
               transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
               className="fixed top-0 right-0 bottom-0 w-72 z-50 md:hidden flex flex-col"
-              style={{ background: "var(--black-card)", borderLeft: "1px solid var(--border)" }}
+              style={{ background: "var(--card)", borderLeft: "1px solid var(--border)" }}
               role="dialog" aria-modal="true" aria-label="Navigation menu"
             >
               <div className="flex items-center justify-between p-6" style={{ borderBottom: "1px solid var(--border)" }}>
-                <span style={{ fontFamily: "var(--font-display)", fontSize: "1.3rem", color: "var(--text-primary)", fontWeight: 700 }}>
-                  Khemka Papers
-                </span>
+                <Logo height={28} />
                 <button onClick={() => setMenuOpen(false)}
                   className="w-9 h-9 flex items-center justify-center rounded-lg"
-                  style={{ color: "var(--text-primary)", background: "rgba(255,255,255,0.05)" }}
+                  style={{ color: "var(--text-primary)", background: "rgba(26,18,8,0.06)" }}
                   aria-label="Close menu">
                   <X size={18} />
                 </button>
@@ -152,7 +145,7 @@ export default function Navbar() {
                   transition={{ delay: navLinks.length * 0.07 + 0.15 }}
                   onClick={(e) => { e.preventDefault(); handleNavClick("#contact"); }}
                   className="mt-4 px-4 py-3 rounded-lg text-base font-semibold text-center"
-                  style={{ background: "var(--gold)", color: "#0A0A0B" }}
+                  style={{ background: "var(--gold)", color: "#FAFAF6" }}
                 >
                   Get a Quote
                 </motion.a>
